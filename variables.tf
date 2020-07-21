@@ -4,14 +4,14 @@ variable "resource_group_name" {
   description = "The name of an existing Resource Group to deploy the security services into."
 }
 
-variable "associated_subnet_name" {
+variable "resource_group_location" {
   type        = string
-  description = "The name of the Azure networking subnet to associate this Network Security Group with."
+  description = "The location of an existing Resource Group to deploy the security services into."
 }
 
-variable "associated_virtual_network_name" {
+variable "associated_subnet_id" {
   type        = string
-  description = "The name of the Azure virtual network in which the subnet resides within to associate this Network Security Group with."
+  description = "The id of the Azure networking subnet to associate this Network Security Group with."
 }
 
 #Optional Variables
