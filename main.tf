@@ -20,13 +20,13 @@ locals {
 
 resource "azurerm_network_security_group" "network_security_group" {
   name                = module.naming.network_security_group.name
-  location            = data.azurerm_resource_group.base.location
-  resource_group_name = data.azurerm_resource_group.base.name
+  location            = var.resource_group_location
+  resource_group_name = var.resource_group_name
 }
 
 resource "azurerm_network_security_rule" "built_in_network_security_rule" {
   for_each                    = local.predefined_rule_names
-  resource_group_name         = data.azurerm_resource_group.base.name
+  resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.network_security_group.name
   name                        = each.value
   priority                    = 4096 - tonumber(each.key)
@@ -42,7 +42,7 @@ resource "azurerm_network_security_rule" "built_in_network_security_rule" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_asso" {
-  subnet_id                 = data.azurerm_subnet.associated_subnet.id
+  subnet_id                 = var.associated_subnet_id
   network_security_group_id = azurerm_network_security_group.network_security_group.id
   depends_on                = [null_resource.module_depends_on]
 }
